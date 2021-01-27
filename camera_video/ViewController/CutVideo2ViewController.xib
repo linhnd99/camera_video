@@ -11,10 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CutVideo2ViewController" customModule="camera_video" customModuleProvider="target">
             <connections>
-                <outlet property="fromTextField" destination="WcS-Rf-l55" id="W7i-BR-v5U"/>
                 <outlet property="playButton" destination="Znf-qy-pfj" id="i0X-h8-Y5n"/>
                 <outlet property="previewView" destination="iCc-l7-DUU" id="6Y6-ZS-XQY"/>
-                <outlet property="toTextField" destination="id2-DT-ecW" id="JJ4-aM-fCT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -44,36 +42,23 @@
                         <action selector="showCutVideoButtonDidTap:" destination="-1" eventType="touchUpInside" id="atx-KL-zGN"/>
                     </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WcS-Rf-l55">
-                    <rect key="frame" x="20" y="364" width="97" height="34"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="97" id="ZzD-0Q-0ie"/>
-                        <constraint firstAttribute="height" constant="34" id="aGY-if-1gu"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="id2-DT-ecW">
-                    <rect key="frame" x="297" y="364" width="97" height="34"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="34" id="1PZ-Gh-Qar"/>
-                        <constraint firstAttribute="width" constant="97" id="rOa-S7-k7f"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YE-jN-wfu">
+                    <rect key="frame" x="170" y="364" width="74" height="30"/>
+                    <state key="normal" title="Add sound"/>
+                    <connections>
+                        <action selector="addSoundButtonDidTap:" destination="-1" eventType="touchUpInside" id="i2E-ht-CrX"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="N1G-NP-TIi" firstAttribute="top" secondItem="Znf-qy-pfj" secondAttribute="bottom" constant="20" id="4yZ-8E-4Ev"/>
-                <constraint firstItem="id2-DT-ecW" firstAttribute="top" secondItem="N1G-NP-TIi" secondAttribute="bottom" constant="20" id="5Nl-Rp-Hp3"/>
-                <constraint firstItem="WcS-Rf-l55" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="I0s-NQ-ppZ"/>
+                <constraint firstItem="5YE-jN-wfu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Gi6-O8-NxX"/>
                 <constraint firstItem="Znf-qy-pfj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Pbi-WT-ZIa"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="id2-DT-ecW" secondAttribute="trailing" constant="20" id="UVI-jt-b8N"/>
+                <constraint firstItem="5YE-jN-wfu" firstAttribute="top" secondItem="N1G-NP-TIi" secondAttribute="bottom" constant="20" id="bF4-IE-Enj"/>
                 <constraint firstItem="iCc-l7-DUU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="haC-tg-Eaa"/>
                 <constraint firstItem="N1G-NP-TIi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lZE-cW-s4B"/>
-                <constraint firstItem="WcS-Rf-l55" firstAttribute="top" secondItem="N1G-NP-TIi" secondAttribute="bottom" constant="20" id="mgT-if-SAZ"/>
                 <constraint firstItem="iCc-l7-DUU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wxE-wK-Z4G"/>
                 <constraint firstItem="Znf-qy-pfj" firstAttribute="top" secondItem="iCc-l7-DUU" secondAttribute="bottom" constant="20" id="xCl-jr-TIF"/>
                 <constraint firstItem="iCc-l7-DUU" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zqP-lx-67q"/>

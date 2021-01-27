@@ -10,8 +10,6 @@ import AVFoundation
 
 class CutVideo2ViewController: UIViewController {
 
-    @IBOutlet weak var toTextField: UITextField!
-    @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     
@@ -40,7 +38,7 @@ class CutVideo2ViewController: UIViewController {
         mutableComposition = AVMutableComposition()
         let asset = AVAsset.init(url: url)
         mutableComposition = AVMutableComposition()
-        for track in asset.tracks {
+        for track in asset.tracks(withMediaType: .video) {
 //            mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
 //            let trackz = mutableComposition.tracks.last
             let compositionTrack = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
@@ -105,6 +103,33 @@ class CutVideo2ViewController: UIViewController {
                                               of: track, at: .zero)
         }
         mutableComposition = newMutaCom
+    }
+    @IBAction func addSoundButtonDidTap(_ sender: Any) {
+        let audioString = Bundle.main.path(forResource: "yyy", ofType: "mp4")
+        let url = URL(fileURLWithPath: audioString!)
+        let audioAsset = AVAsset(url: url)
+        
+        
+        for track in audioAsset.tracks {
+            if track.mediaType == .audio {
+                
+                let trackComposition = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
+                try? trackComposition?.insertTimeRange(CMTimeRange(
+                                                    start: CMTime(seconds: 0, preferredTimescale: 1),
+                                                    duration: CMTime(seconds: 60, preferredTimescale: 1)),
+                                                  of: track,
+                                                  at: .zero)
+                trackComposition?.scaleTimeRange(CMTimeRange(
+                                                    start: CMTime(seconds: 0, preferredTimescale: 1),
+                                                    duration: CMTime(seconds: 60, preferredTimescale: 1)),
+                                                 toDuration: CMTime(seconds: 40, preferredTimescale: 1))
+            }
+        }
+        item = AVPlayerItem(asset: mutableComposition)
+        item.audioTimePitchAlgorithm = .varispeed
+        player.replaceCurrentItem(with: item)
+        
+        print(mutableComposition.tracks.count)
     }
     
 }
