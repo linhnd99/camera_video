@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CutVideoViewController" customModule="camera_video" customModuleProvider="target">
+            <connections>
+                <outlet property="playButton" destination="Ncu-w4-29C" id="dds-Hi-xSC"/>
+                <outlet property="previewView" destination="gVZ-WR-NUe" id="e7a-0P-ukG"/>
+                <outlet property="timelineView" destination="W1o-Dl-Vix" id="8ZX-QJ-TrL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-WR-NUe">
+                    <rect key="frame" x="0.0" y="44" width="414" height="300"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="adj-SS-vzG"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1o-Dl-Vix">
+                    <rect key="frame" x="0.0" y="414" width="414" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="OUb-QS-Aft"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncu-w4-29C">
+                    <rect key="frame" x="192" y="364" width="30" height="30"/>
+                    <state key="normal" title="Play"/>
+                    <connections>
+                        <action selector="playButtonDidTap:" destination="-1" eventType="touchUpInside" id="Bxf-cQ-Jf5"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="gVZ-WR-NUe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="0ue-1Q-xJa"/>
+                <constraint firstItem="W1o-Dl-Vix" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="7uo-ef-UET"/>
+                <constraint firstItem="Ncu-w4-29C" firstAttribute="top" secondItem="gVZ-WR-NUe" secondAttribute="bottom" constant="20" id="7xk-oO-Ejn"/>
+                <constraint firstItem="W1o-Dl-Vix" firstAttribute="top" secondItem="Ncu-w4-29C" secondAttribute="bottom" constant="20" id="Gx3-T6-87c"/>
+                <constraint firstItem="gVZ-WR-NUe" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="KOC-vV-XgT"/>
+                <constraint firstItem="W1o-Dl-Vix" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="V1y-iU-uWf"/>
+                <constraint firstItem="Ncu-w4-29C" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Xgv-U1-wUc"/>
+                <constraint firstItem="gVZ-WR-NUe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="j0R-su-aM3"/>
+            </constraints>
+            <point key="canvasLocation" x="-33.333333333333336" y="109.82142857142857"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

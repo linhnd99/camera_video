@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayVideoViewController" customModule="camera_video" customModuleProvider="target">
+            <connections>
+                <outlet property="previewView" destination="GGn-dx-dQr" id="bP5-7T-Ia2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GGn-dx-dQr" userLabel="Preview View">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="sTw-70-NLX"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="em3-qf-dbb">
+                    <rect key="frame" x="192" y="310" width="30" height="30"/>
+                    <state key="normal" title="play"/>
+                    <connections>
+                        <action selector="playButtonDidTap:" destination="-1" eventType="touchUpInside" id="e0c-97-9Mc"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9M-06-e28">
+                    <rect key="frame" x="162.5" y="350" width="89" height="30"/>
+                    <state key="normal" title="Increase rate"/>
+                    <connections>
+                        <action selector="increaseRateButtonDidTap:" destination="-1" eventType="touchUpInside" id="vCO-Pt-ZuM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXa-23-KcW">
+                    <rect key="frame" x="159" y="390" width="96" height="30"/>
+                    <state key="normal" title="Decrease rate"/>
+                    <connections>
+                        <action selector="decreaseRateButtonDidTap:" destination="-1" eventType="touchUpInside" id="MVe-4O-69z"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJZ-fX-7f0">
+                    <rect key="frame" x="174" y="430" width="66" height="30"/>
+                    <state key="normal" title="Cut video"/>
+                    <connections>
+                        <action selector="cutVideoButtonDidTap:" destination="-1" eventType="touchUpInside" id="Ztj-H0-tKb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="e9M-06-e28" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0bg-5l-1Ah"/>
+                <constraint firstItem="e9M-06-e28" firstAttribute="top" secondItem="em3-qf-dbb" secondAttribute="bottom" constant="10" id="4tl-cI-Y4k"/>
+                <constraint firstItem="em3-qf-dbb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="56r-1F-3xw"/>
+                <constraint firstItem="em3-qf-dbb" firstAttribute="top" secondItem="GGn-dx-dQr" secondAttribute="bottom" constant="10" id="A54-9m-kfY"/>
+                <constraint firstItem="GGn-dx-dQr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FYT-zB-OGE"/>
+                <constraint firstItem="GGn-dx-dQr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TL0-Fc-Edm"/>
+                <constraint firstItem="cJZ-fX-7f0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bG5-yU-d0q"/>
+                <constraint firstItem="JXa-23-KcW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eyS-KJ-uHk"/>
+                <constraint firstItem="cJZ-fX-7f0" firstAttribute="top" secondItem="JXa-23-KcW" secondAttribute="bottom" constant="10" id="lp4-N4-8dh"/>
+                <constraint firstItem="JXa-23-KcW" firstAttribute="top" secondItem="e9M-06-e28" secondAttribute="bottom" constant="10" id="rR5-ZG-8RF"/>
+                <constraint firstItem="GGn-dx-dQr" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="tN2-jl-7pe"/>
+            </constraints>
+            <point key="canvasLocation" x="28.985507246376812" y="98.4375"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
