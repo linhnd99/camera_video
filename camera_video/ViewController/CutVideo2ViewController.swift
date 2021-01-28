@@ -129,7 +129,7 @@ class CutVideo2ViewController: UIViewController {
         let videoComposition = AVMutableVideoComposition.init(propertiesOf: mutableComposition)
 
         let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
-        compositionLayerInstruction.setTransform(rotationInstruction(transform: transform, alpha: .pi/2), at: .zero)
+        compositionLayerInstruction.setTransform(rotationInstruction(transform: transform, alpha: .pi*3/2), at: .zero)
         // compositionLayerInstruction.setTransform(transform.scaledBy(x: 0.5, y: 0.5), at: .zero)
 
         let instruction = AVMutableVideoCompositionInstruction.init()
@@ -147,12 +147,30 @@ class CutVideo2ViewController: UIViewController {
     }
     
     func rotationInstruction(transform: CGAffineTransform, alpha: CGFloat) -> CGAffineTransform {
-        // scale
+        var alpha2 = alpha
+        while alpha2 < 0 {
+            alpha2 += .pi*2
+        }
+        while alpha2 >= .pi*2 {
+            alpha2 -= .pi*2
+        }
+        
         var scale = CGFloat(0)
-        if (alpha == .pi/2) {
+        
+        if (alpha2 == .pi/2) {
             scale = mutableComposition.naturalSize.height/mutableComposition.naturalSize.width
-            return transform.rotated(by: alpha)
+            return transform.rotated(by: alpha2)
                 .translatedBy(x: 0, y: -mutableComposition.naturalSize.width/2 - mutableComposition.naturalSize.height/2*scale)
+                .scaledBy(x: scale, y: scale)
+        }
+        if alpha2 == .pi {
+            return transform.rotated(by: alpha2)
+                .translatedBy(x: -mutableComposition.naturalSize.width, y: -mutableComposition.naturalSize.height)
+        }
+        if (alpha2 == .pi*3/2) {
+            scale = mutableComposition.naturalSize.height/mutableComposition.naturalSize.width
+            return transform.rotated(by: alpha2)
+                .translatedBy(x: -mutableComposition.naturalSize.width*scale, y: mutableComposition.naturalSize.width/2 - mutableComposition.naturalSize.height/2*scale)
                 .scaledBy(x: scale, y: scale)
         }
         return transform
