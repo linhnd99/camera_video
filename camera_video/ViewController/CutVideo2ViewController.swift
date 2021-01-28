@@ -18,6 +18,7 @@ class CutVideo2ViewController: UIViewController {
     var item: AVPlayerItem!
     var asset: AVAsset!
     var videoComposition: AVVideoComposition!
+    var playlayer: AVPlayerLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +51,18 @@ class CutVideo2ViewController: UIViewController {
             // print(time)
         })
         SharedData.sharedData.player = player
-        let playlayer = AVPlayerLayer(player: SharedData.sharedData.player!)
+        playlayer = AVPlayerLayer(player: SharedData.sharedData.player!)
         playlayer.videoGravity = .resize
         playlayer.frame = self.previewView.bounds
         self.previewView.layer.addSublayer(playlayer)
         try! AVAudioSession.sharedInstance().setCategory(.playback)
         try! AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        playlayer.frame = self.previewView.bounds
     }
     
     @IBAction func playButtonDidTap(_ sender: Any) {
@@ -118,25 +125,39 @@ class CutVideo2ViewController: UIViewController {
             transform = trackComposition?.preferredTransform
         }
         
+        // composition layer instruction
         let videoComposition = AVMutableVideoComposition.init(propertiesOf: mutableComposition)
-        videoComposition.renderSize = mutableComposition.naturalSize
-        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
 
         let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
-//        compositionLayerInstruction.setTransform(transform.rotated(by: .pi*2), at: CMTime(seconds: 10, preferredTimescale: 600))
+        compositionLayerInstruction.setTransform(rotationInstruction(transform: transform, alpha: .pi/2), at: .zero)
+        // compositionLayerInstruction.setTransform(transform.scaledBy(x: 0.5, y: 0.5), at: .zero)
 
         let instruction = AVMutableVideoCompositionInstruction.init()
-        instruction.timeRange = mutableComposition.tracks(withMediaType: .video).first!.timeRange
+        instruction.timeRange = CMTimeRangeMake(start: .zero, duration: mutableComposition.duration)
         instruction.layerInstructions = [compositionLayerInstruction]
 
-        videoComposition.instructions = [instruction]
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
         
+        videoComposition.instructions = [instruction]
         self.videoComposition = videoComposition
         item = AVPlayerItem(asset: mutableComposition)
         item.videoComposition = videoComposition
         player.replaceCurrentItem(with: item)
         player.play()
     }
+    
+    func rotationInstruction(transform: CGAffineTransform, alpha: CGFloat) -> CGAffineTransform {
+        // scale
+        var scale = CGFloat(0)
+        if (alpha == .pi/2) {
+            scale = mutableComposition.naturalSize.height/mutableComposition.naturalSize.width
+            return transform.rotated(by: alpha)
+                .translatedBy(x: 0, y: -mutableComposition.naturalSize.width/2 - mutableComposition.naturalSize.height/2*scale)
+                .scaledBy(x: scale, y: scale)
+        }
+        return transform
+    }
+    
         
     func filterLayer() {
         // let ciimage = CIImage(color: UIColor.blue.ciColor)
