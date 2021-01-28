@@ -16,6 +16,8 @@ class CutVideo2ViewController: UIViewController {
     var player: AVPlayer!
     var mutableComposition: AVMutableComposition!
     var item: AVPlayerItem!
+    var asset: AVAsset!
+    var videoComposition: AVVideoComposition!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,22 +38,20 @@ class CutVideo2ViewController: UIViewController {
         print(videoString!)
         let url = URL(fileURLWithPath: videoString!)
         mutableComposition = AVMutableComposition()
-        let asset = AVAsset.init(url: url)
+        asset = AVAsset.init(url: url)
         mutableComposition = AVMutableComposition()
-        for track in asset.tracks(withMediaType: .video) {
-//            mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
-//            let trackz = mutableComposition.tracks.last
+        for track in asset.tracks {
             let compositionTrack = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
             try? compositionTrack!.insertTimeRange(CMTimeRange(start: .zero, end: asset.duration), of: track, at: .zero)
         }
         item = AVPlayerItem(asset: mutableComposition)
         player = AVPlayer(playerItem: item)
         player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main, using: { time in
-            print(time)
+            // print(time)
         })
         SharedData.sharedData.player = player
         let playlayer = AVPlayerLayer(player: SharedData.sharedData.player!)
-        playlayer.videoGravity = .resizeAspect
+        playlayer.videoGravity = .resize
         playlayer.frame = self.previewView.bounds
         self.previewView.layer.addSublayer(playlayer)
         try! AVAudioSession.sharedInstance().setCategory(.playback)
@@ -105,31 +105,89 @@ class CutVideo2ViewController: UIViewController {
         mutableComposition = newMutaCom
     }
     @IBAction func addSoundButtonDidTap(_ sender: Any) {
+        rotatingPreview()
+    }
+    
+    func rotatingPreview() {
+        mutableComposition = AVMutableComposition()
+        var transform: CGAffineTransform!
+        for track in asset.tracks {
+            let trackComposition = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: kCMPersistentTrackID_Invalid)
+            try? trackComposition?.insertTimeRange(track.timeRange, of: track, at: .zero)
+            
+            transform = trackComposition?.preferredTransform
+        }
+        
+        let videoComposition = AVMutableVideoComposition.init(propertiesOf: mutableComposition)
+        videoComposition.renderSize = mutableComposition.naturalSize
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+
+        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+//        compositionLayerInstruction.setTransform(transform.rotated(by: .pi*2), at: CMTime(seconds: 10, preferredTimescale: 600))
+
+        let instruction = AVMutableVideoCompositionInstruction.init()
+        instruction.timeRange = mutableComposition.tracks(withMediaType: .video).first!.timeRange
+        instruction.layerInstructions = [compositionLayerInstruction]
+
+        videoComposition.instructions = [instruction]
+        
+        self.videoComposition = videoComposition
+        item = AVPlayerItem(asset: mutableComposition)
+        item.videoComposition = videoComposition
+        player.replaceCurrentItem(with: item)
+        player.play()
+    }
+        
+    func filterLayer() {
+        // let ciimage = CIImage(color: UIColor.blue.ciColor)
+        let filter = CIFilter(name: "CIBumpDistortion")!
+        let composition = AVVideoComposition(asset: asset, applyingCIFiltersWithHandler: { request in
+
+            // Clamp to avoid blurring transparent pixels at the image edges
+            let source = request.sourceImage.clampedToExtent()
+            filter.setValue(source, forKey: kCIInputImageKey)
+            
+            let inputCenter = CIVector(values: [150, 150], count: 2)
+            filter.setValue(inputCenter, forKey: "inputCenter")
+            
+            let inputRadius = NSNumber(value: 300)
+            filter.setValue(inputRadius, forKey: "inputRadius")
+            
+            let inputScale = NSNumber(value: 0.5)
+            filter.setValue(inputScale, forKey: "inputScale")
+
+            // Vary filter parameters based on video timing
+
+            // Crop the blurred output to the bounds of the original image
+            let output = filter.outputImage!.cropped(to: request.sourceImage.extent)
+
+            // Provide the filter output to the composition
+            request.finish(with: output, context: nil)
+        })
+        
+        item.videoComposition = composition
+        player.replaceCurrentItem(with: item)
+    }
+    
+    func addSound() {
         let audioString = Bundle.main.path(forResource: "yyy", ofType: "mp4")
         let url = URL(fileURLWithPath: audioString!)
         let audioAsset = AVAsset(url: url)
+        let assetTrack: AVAssetTrack = audioAsset.tracks(withMediaType: .audio).first!
+        let trackComposition = mutableComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let segLength = Double(10) // audioAsset.duration
         
-        
-        for track in audioAsset.tracks {
-            if track.mediaType == .audio {
-                
-                let trackComposition = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
-                try? trackComposition?.insertTimeRange(CMTimeRange(
-                                                    start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                    duration: CMTime(seconds: 60, preferredTimescale: 1)),
-                                                  of: track,
-                                                  at: .zero)
-                trackComposition?.scaleTimeRange(CMTimeRange(
-                                                    start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                    duration: CMTime(seconds: 60, preferredTimescale: 1)),
-                                                 toDuration: CMTime(seconds: 40, preferredTimescale: 1))
-            }
+        for i in 0 ..< Int(Double(item.duration.seconds)/segLength) {
+            try? trackComposition?.insertTimeRange(CMTimeRange(start: .zero,
+                                                              end: CMTime(seconds: segLength,preferredTimescale: 600)),
+                                                  of: assetTrack,
+                                                  at: CMTime(seconds: segLength*Double(i), preferredTimescale: 600))
         }
+        
         item = AVPlayerItem(asset: mutableComposition)
         item.audioTimePitchAlgorithm = .varispeed
         player.replaceCurrentItem(with: item)
         
         print(mutableComposition.tracks.count)
     }
-    
 }
