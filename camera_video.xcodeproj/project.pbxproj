@@ -24,6 +24,8 @@
 		97B30AE525C0FDA700311D6F /* zzz.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97B30AE425C0FDA700311D6F /* zzz.mp4 */; };
 		97B30AF125C10A7500311D6F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B30AF025C10A7500311D6F /* SharedData.swift */; };
 		97D9DF2325C14B83001D6D31 /* yyy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97D9DF2225C14B83001D6D31 /* yyy.mp4 */; };
+		97EC46D325C3C20400E0361F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97EC46D225C3C20400E0361F /* Launch Screen.storyboard */; };
+		97EC46DB25C3FBAE00E0361F /* aaa.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97EC46DA25C3FBAE00E0361F /* aaa.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		97B30AE425C0FDA700311D6F /* zzz.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = zzz.mp4; sourceTree = "<group>"; };
 		97B30AF025C10A7500311D6F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
 		97D9DF2225C14B83001D6D31 /* yyy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yyy.mp4; sourceTree = "<group>"; };
+		97EC46D225C3C20400E0361F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		97EC46DA25C3FBAE00E0361F /* aaa.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = aaa.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				9752F86F25BF0EC50000FF7C /* ViewController.swift */,
 				9752F87425BF0EC50000FF7C /* Assets.xcassets */,
 				9752F87925BF0EC50000FF7C /* Info.plist */,
+				97EC46D225C3C20400E0361F /* Launch Screen.storyboard */,
 			);
 			path = camera_video;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 		9752F8B325BF18ED0000FF7C /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				97EC46DA25C3FBAE00E0361F /* aaa.mp4 */,
 				97D9DF2225C14B83001D6D31 /* yyy.mp4 */,
 				97B30AE425C0FDA700311D6F /* zzz.mp4 */,
 			);
@@ -292,6 +298,8 @@
 			files = (
 				97B30AE525C0FDA700311D6F /* zzz.mp4 in Resources */,
 				978A5CC625C01BDA00D30D44 /* CutVideo2ViewController.xib in Resources */,
+				97EC46D325C3C20400E0361F /* Launch Screen.storyboard in Resources */,
+				97EC46DB25C3FBAE00E0361F /* aaa.mp4 in Resources */,
 				9752F87525BF0EC50000FF7C /* Assets.xcassets in Resources */,
 				9752F8AF25BF18CB0000FF7C /* PlayVideoViewController.xib in Resources */,
 				97D9DF2325C14B83001D6D31 /* yyy.mp4 in Resources */,

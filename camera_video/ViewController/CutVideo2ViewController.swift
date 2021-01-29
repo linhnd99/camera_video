@@ -31,7 +31,7 @@ class CutVideo2ViewController: UIViewController {
     }
 
     func configPreview() {
-        let videoString = Bundle.main.path(forResource: "zzz", ofType: "mp4")
+        let videoString = Bundle.main.path(forResource: "aaa", ofType: "mp4")
         if videoString == nil {
             print("video not found")
             return
@@ -112,7 +112,48 @@ class CutVideo2ViewController: UIViewController {
         mutableComposition = newMutaCom
     }
     @IBAction func addSoundButtonDidTap(_ sender: Any) {
-        rotatingPreview()
+        cropVideo2()
+    }
+    
+    func cropVideo2() {
+        let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
+        videoComposition.renderSize = CGSize(width: 250, height: 100)
+        videoComposition.renderScale = 1
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+        videoComposition.animationTool = nil
+        
+        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+        compositionLayerInstruction.setCropRectangle(CGRect(x: 0, y: 0, width: videoComposition.renderSize.width-1, height: videoComposition.renderSize.height-1), at: .zero)
+        let instruction = AVMutableVideoCompositionInstruction()
+        instruction.timeRange = CMTimeRange(start: .zero, duration: mutableComposition.duration)
+        instruction.layerInstructions = [compositionLayerInstruction]
+
+        videoComposition.instructions = [instruction]
+        
+        item.videoComposition = videoComposition
+        player.replaceCurrentItem(with: item)
+        player.play()
+        print(item.tracks)
+    }
+    
+    func cropVideo() {
+        let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
+        
+        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+        // compositionLayerInstruction.setCropRectangle(CGRect(x: 100, y: 100, width: 200, height: 200), at: .zero)
+        compositionLayerInstruction.setCropRectangleRamp(fromStartCropRectangle: CGRect(x: 100, y: 100, width: 100, height: 100), toEndCropRectangle: CGRect(x: 200, y: 200, width: 200, height: 200), timeRange: CMTimeRange(start: .zero, duration: CMTime(seconds: 10, preferredTimescale: 600)))
+        
+        let instruction = AVMutableVideoCompositionInstruction()
+        instruction.timeRange = CMTimeRange(start: .zero, duration: mutableComposition.duration)
+        instruction.layerInstructions = [compositionLayerInstruction]
+        
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+        videoComposition.instructions = [instruction]
+        
+        item.videoComposition = videoComposition
+        player.replaceCurrentItem(with: item)
+        player.play()
+        
     }
     
     func rotatingPreview() {
@@ -178,10 +219,8 @@ class CutVideo2ViewController: UIViewController {
     
         
     func filterLayer() {
-        // let ciimage = CIImage(color: UIColor.blue.ciColor)
         let filter = CIFilter(name: "CIBumpDistortion")!
         let composition = AVVideoComposition(asset: asset, applyingCIFiltersWithHandler: { request in
-
             // Clamp to avoid blurring transparent pixels at the image edges
             let source = request.sourceImage.clampedToExtent()
             filter.setValue(source, forKey: kCIInputImageKey)
@@ -195,9 +234,7 @@ class CutVideo2ViewController: UIViewController {
             let inputScale = NSNumber(value: 0.5)
             filter.setValue(inputScale, forKey: "inputScale")
 
-            // Vary filter parameters based on video timing
-
-            // Crop the blurred output to the bounds of the original image
+            // the blurred output to the bounds of the original image
             let output = filter.outputImage!.cropped(to: request.sourceImage.extent)
 
             // Provide the filter output to the composition

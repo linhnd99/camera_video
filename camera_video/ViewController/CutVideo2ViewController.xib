@@ -43,8 +43,8 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YE-jN-wfu">
-                    <rect key="frame" x="170" y="364" width="74" height="30"/>
-                    <state key="normal" title="Add sound"/>
+                    <rect key="frame" x="152.5" y="364" width="109" height="30"/>
+                    <state key="normal" title="Function button"/>
                     <connections>
                         <action selector="addSoundButtonDidTap:" destination="-1" eventType="touchUpInside" id="i2E-ht-CrX"/>
                     </connections>
