@@ -117,13 +117,15 @@ class CutVideo2ViewController: UIViewController {
     
     func cropVideo2() {
         let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
-        videoComposition.renderSize = CGSize(width: 250, height: 100)
+        videoComposition.renderSize = CGSize(width: 100, height: 100)
         videoComposition.renderScale = 1
         videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
         videoComposition.animationTool = nil
         
+        
         let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
-        compositionLayerInstruction.setCropRectangle(CGRect(x: 0, y: 0, width: videoComposition.renderSize.width-1, height: videoComposition.renderSize.height-1), at: .zero)
+        compositionLayerInstruction.setCropRectangle(CGRect(x: 0, y: 100, width: 300, height: 300), at: .zero)
+        compositionLayerInstruction.setTransform(mutableComposition.tracks(withMediaType: .video).first!.preferredTransform.translatedBy(x: 0, y: -70), at: .zero)
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = CMTimeRange(start: .zero, duration: mutableComposition.duration)
         instruction.layerInstructions = [compositionLayerInstruction]
