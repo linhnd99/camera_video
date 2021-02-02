@@ -31,7 +31,7 @@ class CutVideo2ViewController: UIViewController {
     }
 
     func configPreview() {
-        let videoString = Bundle.main.path(forResource: "aaa", ofType: "mp4")
+        let videoString = Bundle.main.path(forResource: "yyy", ofType: "mp4")
         if videoString == nil {
             print("video not found")
             return
@@ -52,7 +52,7 @@ class CutVideo2ViewController: UIViewController {
         })
         SharedData.sharedData.player = player
         playlayer = AVPlayerLayer(player: SharedData.sharedData.player!)
-        playlayer.videoGravity = .resize
+        playlayer.videoGravity = .resizeAspect
         playlayer.frame = self.previewView.bounds
         self.previewView.layer.addSublayer(playlayer)
         try! AVAudioSession.sharedInstance().setCategory(.playback)
@@ -112,44 +112,100 @@ class CutVideo2ViewController: UIViewController {
         mutableComposition = newMutaCom
     }
     @IBAction func addSoundButtonDidTap(_ sender: Any) {
-        cropVideo2()
+        cropVideo3()
     }
     
-    func cropVideo2() {
-        let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
-        videoComposition.renderSize = CGSize(width: 100, height: 100)
-        videoComposition.renderScale = 1
-        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
-        videoComposition.animationTool = nil
-        
-        
-        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
-        compositionLayerInstruction.setCropRectangle(CGRect(x: 0, y: 100, width: 300, height: 300), at: .zero)
-        compositionLayerInstruction.setTransform(mutableComposition.tracks(withMediaType: .video).first!.preferredTransform.translatedBy(x: 0, y: -70), at: .zero)
-        let instruction = AVMutableVideoCompositionInstruction()
-        instruction.timeRange = CMTimeRange(start: .zero, duration: mutableComposition.duration)
-        instruction.layerInstructions = [compositionLayerInstruction]
-
-        videoComposition.instructions = [instruction]
-        
+    // crop video with filter CICrop
+    func cropVideo3() {
+        let filter = CIFilter(name: "CICrop")!
+        let videoComposition = AVMutableVideoComposition(asset: mutableComposition, applyingCIFiltersWithHandler:{ (request) in
+            let source = request.sourceImage.clampedToExtent()
+            filter.setValue(source, forKey: "inputImage")
+            
+            let rect = CGRect(x: 100, y: 100, width: 200, height: 200)
+            let rec = CIVector(cgRect: rect)
+            filter.setValue(rec, forKey: "inputRectangle")
+            
+            let output = filter.outputImage!.cropped(to: rect)
+            
+            // Provide the filter output to the composition
+            request.finish(with: output, context: nil)
+        })
+        videoComposition.renderSize = CGSize(width: 400, height: 400)
         item.videoComposition = videoComposition
         player.replaceCurrentItem(with: item)
         player.play()
-        print(item.tracks)
+    }
+    
+    func cropVideo2() {
+//        let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
+//        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+//        //compositionLayerInstruction.setTransform(.identity, at: .zero)
+//
+//        let instruction = AVMutableVideoCompositionInstruction.init()
+//        instruction.timeRange = CMTimeRangeMake(start: .zero, duration: mutableComposition.duration)
+//        instruction.layerInstructions = [compositionLayerInstruction]
+//
+//        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+//
+//
+//        //videoComposition.renderSize = CGSize(width: 512, height: 512)
+//        videoComposition.instructions = [instruction]
+//
+//        item.videoComposition = videoComposition
+//        player.replaceCurrentItem(with: item)
+//        player.play()
+//        print(item.tracks)
+        
+        
+        mutableComposition = AVMutableComposition()
+        var transform: CGAffineTransform!
+        for track in asset.tracks {
+            let trackComposition = mutableComposition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: kCMPersistentTrackID_Invalid)
+            try? trackComposition?.insertTimeRange(track.timeRange, of: track, at: .zero)
+            
+            trackComposition?.preferredTransform = track.preferredTransform
+            transform = trackComposition?.preferredTransform
+        }
+        
+        // composition layer instruction
+        let videoComposition = AVMutableVideoComposition.init()
+
+        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+        compositionLayerInstruction.setCropRectangle(CGRect(x: 0.1, y: 0, width: 500, height: 500), at: .zero)
+//        compositionLayerInstruction.setTransform(transform, at: .zero)
+//        compositionLayerInstruction.setTransform(rotationInstruction(transform: transform, alpha: .pi*3/2), at: .zero)
+        // compositionLayerInstruction.setTransform(transform.scaledBy(x: 0.5, y: 0.5), at: .zero)
+
+        let instruction = AVMutableVideoCompositionInstruction.init()
+        instruction.timeRange = CMTimeRangeMake(start: .zero, duration: mutableComposition.duration)
+        instruction.layerInstructions = [compositionLayerInstruction]
+
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+        videoComposition.renderSize = CGSize(width: 500, height: 500)
+        
+        videoComposition.instructions = [instruction]
+        self.videoComposition = videoComposition
+        item = AVPlayerItem(asset: mutableComposition)
+        item.videoComposition = videoComposition
+        player.replaceCurrentItem(with: item)
+        player.play()
     }
     
     func cropVideo() {
         let videoComposition = AVMutableVideoComposition(propertiesOf: mutableComposition)
         
-        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
-        // compositionLayerInstruction.setCropRectangle(CGRect(x: 100, y: 100, width: 200, height: 200), at: .zero)
-        compositionLayerInstruction.setCropRectangleRamp(fromStartCropRectangle: CGRect(x: 100, y: 100, width: 100, height: 100), toEndCropRectangle: CGRect(x: 200, y: 200, width: 200, height: 200), timeRange: CMTimeRange(start: .zero, duration: CMTime(seconds: 10, preferredTimescale: 600)))
-        
-        let instruction = AVMutableVideoCompositionInstruction()
-        instruction.timeRange = CMTimeRange(start: .zero, duration: mutableComposition.duration)
+
+        let compositionLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: mutableComposition.tracks(withMediaType: .video).first!)
+        compositionLayerInstruction.setTransform(rotationInstruction(transform: .identity, alpha: .pi*3/2), at: .zero)
+        // compositionLayerInstruction.setTransform(transform.scaledBy(x: 0.5, y: 0.5), at: .zero)
+
+        let instruction = AVMutableVideoCompositionInstruction.init()
+        instruction.timeRange = CMTimeRangeMake(start: .zero, duration: mutableComposition.duration)
         instruction.layerInstructions = [compositionLayerInstruction]
-        
+
         videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+        
         videoComposition.instructions = [instruction]
         
         item.videoComposition = videoComposition

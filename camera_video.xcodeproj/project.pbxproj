@@ -16,6 +16,10 @@
 		9752F8A425BF0F270000FF7C /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9752F8A225BF0F270000FF7C /* CameraViewController.xib */; };
 		9752F8AE25BF18CB0000FF7C /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752F8AC25BF18CB0000FF7C /* PlayVideoViewController.swift */; };
 		9752F8AF25BF18CB0000FF7C /* PlayVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9752F8AD25BF18CB0000FF7C /* PlayVideoViewController.xib */; };
+		9773BBD325C698F600D67901 /* MergeVideoAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9773BBD125C698F600D67901 /* MergeVideoAudioViewController.swift */; };
+		9773BBD425C698F600D67901 /* MergeVideoAudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9773BBD225C698F600D67901 /* MergeVideoAudioViewController.xib */; };
+		9773BBDA25C69FEC00D67901 /* test1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9773BBD825C69FEB00D67901 /* test1.mp4 */; };
+		9773BBDB25C69FEC00D67901 /* test2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9773BBD925C69FEC00D67901 /* test2.mp4 */; };
 		978A5CB625BFBE9D00D30D44 /* CutVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978A5CB425BFBE9D00D30D44 /* CutVideoViewController.swift */; };
 		978A5CB725BFBE9D00D30D44 /* CutVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 978A5CB525BFBE9D00D30D44 /* CutVideoViewController.xib */; };
 		978A5CBC25BFD11F00D30D44 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978A5CBB25BFD11F00D30D44 /* TimeLineView.swift */; };
@@ -23,6 +27,7 @@
 		978A5CC625C01BDA00D30D44 /* CutVideo2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 978A5CC425C01BDA00D30D44 /* CutVideo2ViewController.xib */; };
 		97B30AE525C0FDA700311D6F /* zzz.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97B30AE425C0FDA700311D6F /* zzz.mp4 */; };
 		97B30AF125C10A7500311D6F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B30AF025C10A7500311D6F /* SharedData.swift */; };
+		97B71BDE25C90F81001AB3C0 /* keobonggon.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97B71BDD25C90F81001AB3C0 /* keobonggon.mp4 */; };
 		97D9DF2325C14B83001D6D31 /* yyy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97D9DF2225C14B83001D6D31 /* yyy.mp4 */; };
 		97EC46D325C3C20400E0361F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97EC46D225C3C20400E0361F /* Launch Screen.storyboard */; };
 		97EC46DB25C3FBAE00E0361F /* aaa.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97EC46DA25C3FBAE00E0361F /* aaa.mp4 */; };
@@ -61,6 +66,10 @@
 		9752F8A225BF0F270000FF7C /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		9752F8AC25BF18CB0000FF7C /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
 		9752F8AD25BF18CB0000FF7C /* PlayVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayVideoViewController.xib; sourceTree = "<group>"; };
+		9773BBD125C698F600D67901 /* MergeVideoAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeVideoAudioViewController.swift; sourceTree = "<group>"; };
+		9773BBD225C698F600D67901 /* MergeVideoAudioViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergeVideoAudioViewController.xib; sourceTree = "<group>"; };
+		9773BBD825C69FEB00D67901 /* test1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.mp4; sourceTree = "<group>"; };
+		9773BBD925C69FEC00D67901 /* test2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.mp4; sourceTree = "<group>"; };
 		978A5CB425BFBE9D00D30D44 /* CutVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutVideoViewController.swift; sourceTree = "<group>"; };
 		978A5CB525BFBE9D00D30D44 /* CutVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CutVideoViewController.xib; sourceTree = "<group>"; };
 		978A5CBB25BFD11F00D30D44 /* TimeLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
@@ -68,6 +77,7 @@
 		978A5CC425C01BDA00D30D44 /* CutVideo2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CutVideo2ViewController.xib; sourceTree = "<group>"; };
 		97B30AE425C0FDA700311D6F /* zzz.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = zzz.mp4; sourceTree = "<group>"; };
 		97B30AF025C10A7500311D6F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
+		97B71BDD25C90F81001AB3C0 /* keobonggon.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = keobonggon.mp4; sourceTree = "<group>"; };
 		97D9DF2225C14B83001D6D31 /* yyy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yyy.mp4; sourceTree = "<group>"; };
 		97EC46D225C3C20400E0361F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		97EC46DA25C3FBAE00E0361F /* aaa.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = aaa.mp4; sourceTree = "<group>"; };
@@ -163,6 +173,8 @@
 				978A5CB525BFBE9D00D30D44 /* CutVideoViewController.xib */,
 				978A5CC325C01BDA00D30D44 /* CutVideo2ViewController.swift */,
 				978A5CC425C01BDA00D30D44 /* CutVideo2ViewController.xib */,
+				9773BBD125C698F600D67901 /* MergeVideoAudioViewController.swift */,
+				9773BBD225C698F600D67901 /* MergeVideoAudioViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -170,6 +182,9 @@
 		9752F8B325BF18ED0000FF7C /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				97B71BDD25C90F81001AB3C0 /* keobonggon.mp4 */,
+				9773BBD825C69FEB00D67901 /* test1.mp4 */,
+				9773BBD925C69FEC00D67901 /* test2.mp4 */,
 				97EC46DA25C3FBAE00E0361F /* aaa.mp4 */,
 				97D9DF2225C14B83001D6D31 /* yyy.mp4 */,
 				97B30AE425C0FDA700311D6F /* zzz.mp4 */,
@@ -298,13 +313,17 @@
 			files = (
 				97B30AE525C0FDA700311D6F /* zzz.mp4 in Resources */,
 				978A5CC625C01BDA00D30D44 /* CutVideo2ViewController.xib in Resources */,
+				9773BBDB25C69FEC00D67901 /* test2.mp4 in Resources */,
 				97EC46D325C3C20400E0361F /* Launch Screen.storyboard in Resources */,
 				97EC46DB25C3FBAE00E0361F /* aaa.mp4 in Resources */,
 				9752F87525BF0EC50000FF7C /* Assets.xcassets in Resources */,
+				9773BBDA25C69FEC00D67901 /* test1.mp4 in Resources */,
 				9752F8AF25BF18CB0000FF7C /* PlayVideoViewController.xib in Resources */,
+				9773BBD425C698F600D67901 /* MergeVideoAudioViewController.xib in Resources */,
 				97D9DF2325C14B83001D6D31 /* yyy.mp4 in Resources */,
 				9752F8A425BF0F270000FF7C /* CameraViewController.xib in Resources */,
 				978A5CB725BFBE9D00D30D44 /* CutVideoViewController.xib in Resources */,
+				97B71BDE25C90F81001AB3C0 /* keobonggon.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9773BBD325C698F600D67901 /* MergeVideoAudioViewController.swift in Sources */,
 				978A5CBC25BFD11F00D30D44 /* TimeLineView.swift in Sources */,
 				978A5CC525C01BDA00D30D44 /* CutVideo2ViewController.swift in Sources */,
 				978A5CB625BFBE9D00D30D44 /* CutVideoViewController.swift in Sources */,

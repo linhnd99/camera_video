@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let firstVC = CutVideo2ViewController()
+        let firstVC = MergeVideoAudioViewController()
+        // let firstVC = CutVideo2ViewController()
         // let firstVC = PlayVideoViewController()
         window.rootViewController = firstVC
         window.makeKeyAndVisible()
